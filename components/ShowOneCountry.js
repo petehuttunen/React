@@ -1,0 +1,19 @@
+import React from 'react'
+
+const ShowOneCountry = ({countries, newFilter, handleCountryChange}) => {
+return(
+    <div >
+      {countries.filter(country => country.name.toLowerCase().includes(newFilter) || newFilter === '')
+      .map(country => <div key={country.name} onChange={handleCountryChange}> <h2> {country.name} </h2> 
+        <div> capital {country.capital } </div>
+        <div> population {country.population} </div> 
+       <h2> languages</h2> 
+       <ul> {country.languages.map( language=> <li key={language.name}> {language.name}</li>) }
+       </ul>
+       <img src={country.flag} width="100" height='80'></img>
+      </div> )}
+
+    </div> 
+    )
+}
+    export default ShowOneCountry
