@@ -2,34 +2,12 @@ import React from 'react'
 import axios from 'axios'
 import ShowOneCountry from './ShowOneCountry'
 
-/*  const CountryFilter = (props) => {
-    const {countries, newFilter, handeShowCountry, handleShowCountry} = props
-    console.log("maat", props)
-    return (
-      <div>
-        testi
-      </div>
-    )
-  } */
-
-/*  const CountryFilter = ({countries, newFilter, handleCountryChange, handleShowCountry}) => {
-
-    return (
-      <div>
-        {countries.map( country => country.name.common)}
-      </div>
-    )
-  } */
-
   const CountryFilter = (props) => {
 
-    const {countries, newFilter, handleCountryChange, handleOneCountry} = props
-
-    console.log("newfilter menee ", props)
+    const {countries, newFilter, handleCountryChange, handleOneCountry, weather, handleWeatherChange} = props
+    
     const maaLuku = countries.filter(country => country.name.common.toLowerCase().includes(newFilter)  ).length
-   // const maat = countries.map(country => country.languages)
-   // console.log(maat)
-   console.log("Maaluku on ",maaLuku)
+
     if(maaLuku > 10){
       return(
         <p>
@@ -43,9 +21,7 @@ import ShowOneCountry from './ShowOneCountry'
         <div>
           {countries.filter(country => country.name.common.toLowerCase().includes(newFilter) )
           .map(country => <div key={country.name.common} onChange={handleCountryChange}> {country.name.common} 
-          {console.log("maaluku 10 ja 1 ",country.name.common)}
-           <button onClick={() => handleOneCountry(country)}> show 
-        {/*  <button onClick={() => ShowOneCountry(countries, newFilter, handleCountryChange)}> show */}
+           <button onClick={() => handleOneCountry(country) } > show 
           </button>
           
           </div> )} 
@@ -54,22 +30,34 @@ import ShowOneCountry from './ShowOneCountry'
     }
 
     if(maaLuku === 1) {
-      
+
+    /*  <ShowOneCountry countries = {countries} newFilter = {newFilter} />*/
+  //  const languageObjects = country.languages
+  //  const languages = Object.keys(languageObjects).map((key) =>languageObjects.key)
+  //  const languages = Object.keys(languageObjects).map( (key) => languageObjects[key]) 
+  // onChange={handleOneCountry}     
     return(
-      <div >
-        {countries
-        .map(country => <div key={country.name.common} > <h2> {country.name.common} </h2> 
-          <div> capital {country.capital } </div>
-          {console.log(country.name.common)}
-        {/*  <div> population {country.population} </div>   */}
-         <h2> languages</h2> 
-        {  <ul> {country.languages.map( language=> <li key={language.id}> {language}</li>) }
-         </ul> }
+      <div>
+        {countries.filter(country => country.name.common.toLowerCase().includes(newFilter) )
+        .map(country => <div key={country.name.common} onChange={handleWeatherChange(country)}> <h2> {country.name.common} </h2> 
+          <div> <b>Capital: </b> {country.capital } </div>
+          
+          
+         <h2> Languages</h2> 
+
+        {/*  <ul> {languages.map( language=> <li key={language.key}> {language}</li>) }
+         </ul> */}
          <img src={country.flags.png} width="100" height='80'></img>
-        </div> )}
+
+         <h2> Weather in {country.capital} </h2>
+            <p><b>Temperature:</b>  {weather?.current?.temperature} C </p>
+            <p><img src={weather?.current?.weather_icons} width="50" height='50'></img> </p>
+            <p>{weather?.current?.weather_descriptions} </p>
+        <p>Wind speed {weather?.current?.wind_speed}km/h wind direction {weather?.current?.wind_dir} </p>
+        </div > )}
 
       </div> 
-    )
+    ) 
   } 
 
   return(
