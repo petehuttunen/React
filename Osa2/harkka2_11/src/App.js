@@ -45,13 +45,9 @@ const App = () => {
 
   const handleOneCountry = (country) => {
     setNewFilter(country.name.common.toLowerCase())
-    //setWeather(country.capital[0])
+    setWeather(country.capital[0])
     console.log("weather menee ", weather)
 
-  }
-
-  const handleWeatherChange = (country) => {
-    setWeather(country.capital[0])
   }
 
   const countriesToShow = showAll
@@ -64,7 +60,7 @@ const App = () => {
         <CountryFilterForm newFilter={newFilter} handleFilterChange={handleFilterChange} />
       </div>
       <CountryFilter countries={countriesToShow} newFilter={newFilter} handleCountryChange={handleCountryChange}
-        handleOneCountry={handleOneCountry} handleWeatherChange={handleWeatherChange} weather={weather} />
+        handleOneCountry={handleOneCountry} weather={weather} />
     </div>
   )
 

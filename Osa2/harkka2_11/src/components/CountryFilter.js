@@ -4,7 +4,7 @@ import ShowOneCountry from './ShowOneCountry'
 
   const CountryFilter = (props) => {
 
-    const {countries, newFilter, handleCountryChange, handleOneCountry, weather, handleWeatherChange} = props
+    const {countries, newFilter, handleCountryChange, handleOneCountry, weather} = props
     
     const maaLuku = countries.filter(country => country.name.common.toLowerCase().includes(newFilter)  ).length
 
@@ -39,7 +39,7 @@ import ShowOneCountry from './ShowOneCountry'
     return(
       <div>
         {countries.filter(country => country.name.common.toLowerCase().includes(newFilter) )
-        .map(country => <div key={country.name.common} onChange={handleWeatherChange(country)}> <h2> {country.name.common} </h2> 
+        .map(country => <div key={country.name.common} onChange={handleOneCountry(country)}> <h2> {country.name.common} </h2> 
           <div> <b>Capital: </b> {country.capital } </div>
           
           
