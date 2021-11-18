@@ -20,7 +20,7 @@ import ShowOneCountry from './ShowOneCountry'
       return(
         <div>
           {countries.filter(country => country.name.common.toLowerCase().includes(newFilter) )
-          .map(country => <div key={country.name.common} onChange={handleCountryChange}> {country.name.common} 
+          .map(country => <div key={country.name.common} onChange={handleCountryChange}> {country.name.common}
            <button onClick={() => handleOneCountry(country) } > show 
           </button>
           
@@ -30,7 +30,10 @@ import ShowOneCountry from './ShowOneCountry'
     }
 
     if(maaLuku === 1) {
-
+      
+     // const country = countries.filter(country => country.name.common.toLowerCase().includes(newFilter))
+     // console.log("country muuttuja on",country)
+     // handleOneCountry(country[0])
     /*  <ShowOneCountry countries = {countries} newFilter = {newFilter} />*/
   //  const languageObjects = country.languages
   //  const languages = Object.keys(languageObjects).map((key) =>languageObjects.key)
@@ -39,7 +42,7 @@ import ShowOneCountry from './ShowOneCountry'
     return(
       <div>
         {countries.filter(country => country.name.common.toLowerCase().includes(newFilter) )
-        .map(country => <div key={country.name.common} onChange={handleOneCountry(country)}> <h2> {country.name.common} </h2> 
+        .map(country => <div key={country.name.common} > <h2> {country.name.common} </h2> 
           <div> <b>Capital: </b> {country.capital } </div>
           
           

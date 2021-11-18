@@ -6,6 +6,12 @@ import axios from 'axios'
 
 const App = () => {
 
+  const [countries, setCountries] = useState([])
+  const [showAll, setShowAll] = useState(true)
+  const [weather, setWeather] = useState([])
+
+  const [newFilter, setNewFilter] = useState('')
+
   useEffect(() => {
 
     // https://restcountries.eu/rest/v2/all
@@ -14,40 +20,27 @@ const App = () => {
     })
   }, [])
 
-   useEffect( () => { // ${newFilter.capital}
-    // &query=Stockholm
-    // &query=${weather}
- 
-     axios.get(`http://api.weatherstack.com/current?access_key=${process.env.REACT_APP_WEATHER}&query=${weather}`
-     +`&query=${weather}`).then(response => {
-       //setWeather(response.data)
-       console.log("Säätiedot: ",response.data)
-       //console.log("Weather muuttuja on ", weather)
-     })
-   }, [] ) 
+  useEffect(() => { 
+    axios.get(`http://api.weatherstack.com/current?access_key=${process.env.REACT_APP_WEATHER}&query=${weather}`)
+      .then(response => {
+        setWeather(response.data)
+      })
+  }, [newFilter])
 
-  const [countries, setCountries] = useState([])
-  const [showAll, setShowAll] = useState(true)
-  const [weather, setWeather] = useState('')
-
-  const [newFilter, setNewFilter] = useState('')
 
   const handleCountryChange = (event) => {
     setNewFilter(event.target.value)
     setShowAll(false)
-   // setWeather(event.target.value)
   }
 
   const handleFilterChange = (event) => {
     setNewFilter(event.target.value)
-   // setWeather(event.target.value)
   }
 
   const handleOneCountry = (country) => {
+    console.log("country on ",country)
     setNewFilter(country.name.common.toLowerCase())
     setWeather(country.capital[0])
-    console.log("weather menee ", weather)
-
   }
 
   const countriesToShow = showAll
