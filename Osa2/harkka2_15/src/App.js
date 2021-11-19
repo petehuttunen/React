@@ -3,13 +3,15 @@ import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import FilterForm from './components/FilterForm'
 import axios from 'axios'
-
+import personService from './services/Persons'
 
 const App = () => {
   
   useEffect( () => {
-    axios.get('http://localhost:3001/persons').then(response => {
-      setPersons(response.data)
+    personService
+    .getAll()
+    .then(initialPersons => {
+      setPersons(initialPersons)
     })
   }, [] )
 
@@ -41,14 +43,15 @@ const App = () => {
 //      setNewName('')
 //      setNewNumber('')
 
-
-        axios.post('http://localhost:3001/persons', personObject).then(response => {
-          console.log(response)
+    personService
+    .create(personObject)
+    .then(returnedPerson => {
+      console.log(returnedPerson)
         //  setPersons(response.data)
-          setPersons(persons.concat(personObject))
-          setNewName('')
-          setNewNumber('')
-        })  
+      setPersons(persons.concat(returnedPerson))
+      setNewName('')
+      setNewNumber('')
+    })  
     
   }
 
@@ -63,8 +66,6 @@ const App = () => {
   const handleFilterChange = (event) => {
     setNewFilter(event.target.value)
   }
-
-
 
   return (
     <div>
