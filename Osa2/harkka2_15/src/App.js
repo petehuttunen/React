@@ -15,11 +15,11 @@ const App = () => {
     })
   }, [] )
 
-  const [ persons, setPersons] = useState([])
-
+  const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newFilter, setNewFilter] = useState('')
+  const [showAll, setShowAll] = useState(true)
 
   const addPerson = (event) => {
     event.preventDefault()
@@ -39,15 +39,11 @@ const App = () => {
           return
       }
     }
-//      setPersons(persons.concat(personObject))
-//      setNewName('')
-//      setNewNumber('')
 
     personService
     .create(personObject)
     .then(returnedPerson => {
       console.log(returnedPerson)
-        //  setPersons(response.data)
       setPersons(persons.concat(returnedPerson))
       setNewName('')
       setNewNumber('')
@@ -65,7 +61,12 @@ const App = () => {
 
   const handleFilterChange = (event) => {
     setNewFilter(event.target.value)
+    setShowAll(false)
   }
+
+  const personsToShow = showAll
+    ? persons
+    : persons.filter(person => person.name.toLowerCase().match(newFilter.toLowerCase))
 
   return (
     <div>
@@ -79,7 +80,7 @@ const App = () => {
       <h2>
         Numbers
       </h2>
-      <Filter persons = {persons} newFilter = {newFilter} />
+      <Filter persons = {persons} newFilter = {newFilter} personsToShow = {personsToShow} setPersons = {setPersons}/>
     </div>
   )
 
